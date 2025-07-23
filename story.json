@@ -1,0 +1,67 @@
+{
+  "start": {
+    "text": "It's a cool October evening in Hawkins, Indiana. The sun has just set, casting long shadows across the quiet suburban streets. You're riding your bike home from the arcade. A strange, flickering light from the entrance to Mirkwood Forest catches your eye. You feel an inexplicable pull towards it. What do you do?",
+    "choices": [
+      { "text": "Investigate the light", "next": "enter_forest" },
+      { "text": "Ignore it and go home", "next": "go_home" }
+    ]
+  },
+  "go_home": {
+    "text": "You decide it's probably just some kids with fireworks and pedal home. Inside, you grab a snack from the kitchen. As you're about to head to your room, the phone rings. It's an unusual hour for a call.",
+    "choices": [
+      { "text": "Answer the phone", "next": "answer_phone" },
+      { "text": "Ignore it and go to your room", "next": "ignore_phone" }
+    ]
+  },
+  "enter_forest": {
+    "text": "Curiosity gets the better of you. You ditch your bike behind a bush and cautiously step into the forest. The air grows cold. The only sound is the crunch of leaves under your feet. The flickering light is stronger here, pulsing rhythmically from a clearing up ahead. As you get closer, you see it's not a flashlight - it's a shimmering tear in the air.",
+    "choices": [
+      { "text": "Touch the tear", "next": "touch_tear" },
+      { "text": "Observe from a distance", "next": "observe_tear" }
+    ]
+  },
+  "touch_tear": {
+    "text": "You reach out a hesitant hand. The moment your fingers touch the shimmering energy, the world dissolves into a chaotic swirl of red and black. You feel a nauseating lurch, and then... silence. You open your eyes to a nightmare version of the forest. The air is thick with floating spores, and strange, vine-like tendrils cover everything. You've crossed over.",
+    "choices": [
+      { "text": "Scream for help", "next": "scream_upside_down" },
+      { "text": "Look for a way back", "next": "find_gate_back" }
+    ]
+  },
+  "observe_tear": {
+    "text": "You hide behind a large oak tree, heart pounding in your chest. The tear in reality, the 'gate', hums with a low, menacing energy. After a few minutes, a creature lurches out of it. It's pale, faceless, and unfolds like a grotesque flower. A Demogorgon. It hasn't seen you. What's the plan?",
+    "choices": [
+      { "text": "Run as fast as you can", "next": "run_from_demogorgon" },
+      { "text": "Stay hidden and hope it leaves", "next": "hide_from_demogorgon" }
+    ]
+  },
+  "scream_upside_down": {
+    "text": "Your scream is swallowed by the oppressive atmosphere of this 'Upside Down'. Instead of help, your cry attracts attention. You hear a terrifying chittering sound approaching fast. You realize screaming was a very, very bad idea. The End.",
+    "choices": []
+  },
+  "find_gate_back": {
+    "text": "Panic is a luxury you can't afford. You look back to where you came from and see the gate, still shimmering. It seems to be the only way out. You take a deep breath and prepare to run back through it, hoping whatever is out here doesn't see you first.",
+    "choices": [
+      { "text": "Make a dash for the gate", "next": "dash_for_gate" }
+    ]
+  },
+  "run_from_demogorgon": {
+    "text": "You don't wait to see what it does next. You turn and sprint, not caring about the noise. The creature lets out a screech and gives chase. The forest is a blur. You burst out of the woods, not caring where you are, just that you're out. You don't look back. You made it out, but now you know the monsters are real. The End.",
+    "choices": []
+  },
+  "hide_from_demogorgon": {
+    "text": "You press yourself against the tree, trying to control your breathing. The Demogorgon sniffs the air, its head tilting unnervingly. After a moment that feels like an eternity, it wanders off in another direction. You wait until it's long gone before slowly, carefully, backing away and running for your life. You're safe, for now. The End.",
+    "choices": []
+  },
+  "dash_for_gate": {
+    "text": "You sprint towards the gate. The ground squelches beneath your feet. A shriek from the darkness tells you you've been spotted. You pour on the speed, diving headfirst through the shimmering portal just as you feel a hot breath on your neck. You tumble back into the normal world, the gate snapping shut behind you with a sound like tearing fabric. You're safe, but you'll never forget what you saw. The End.",
+    "choices": []
+  },
+  "answer_phone": {
+    "text": "You pick up the receiver. 'Hello?' you say. There's only static, then a faint, panicked voice whispers your name from the noise before the line goes dead. A chill runs down your spine. That voice... it sounded like Will Byers.",
+    "choices": []
+  },
+  "ignore_phone": {
+    "text": "You let it ring. It's probably a wrong number. You go to your room, turn on your radio, and try to forget about the weird light in the woods. You eventually fall asleep, oblivious to the dangers stirring in the town. The End.",
+    "choices": []
+  }
+}
