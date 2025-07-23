@@ -1,67 +1,246 @@
 {
   "start": {
-    "text": "It's a cool October evening in Hawkins, Indiana. The sun has just set, casting long shadows across the quiet suburban streets. You're riding your bike home from the arcade. A strange, flickering light from the entrance to Mirkwood Forest catches your eye. You feel an inexplicable pull towards it. What do you do?",
+    "theme": "hawkins-night",
+    "text": "The neon glow of the Palace Arcade fades behind you. It's a cool October evening, and the familiar streets of Hawkins are quiet. As you ride your bike home, a strange, rhythmic, flickering light from the entrance to Mirkwood Forest snags your attention. It pulses like a weak, electric heartbeat.",
     "choices": [
-      { "text": "Investigate the light", "next": "enter_forest" },
-      { "text": "Ignore it and go home", "next": "go_home" }
+      { "text": "Investigate the strange light", "next": "enter_forest" },
+      { "text": "It's getting late. Go home.", "next": "go_home_early" }
     ]
   },
-  "go_home": {
-    "text": "You decide it's probably just some kids with fireworks and pedal home. Inside, you grab a snack from the kitchen. As you're about to head to your room, the phone rings. It's an unusual hour for a call.",
-    "choices": [
-      { "text": "Answer the phone", "next": "answer_phone" },
-      { "text": "Ignore it and go to your room", "next": "ignore_phone" }
-    ]
+  "go_home_early": {
+    "theme": "hawkins-night",
+    "text": "You shake your head. Just kids with fireworks, probably. You pedal faster towards the comfort of your streetlights. You eat dinner, watch some TV, and go to bed. The night is uneventful, but you can't shake the feeling you missed something important. The End.",
+    "choices": []
   },
+
   "enter_forest": {
-    "text": "Curiosity gets the better of you. You ditch your bike behind a bush and cautiously step into the forest. The air grows cold. The only sound is the crunch of leaves under your feet. The flickering light is stronger here, pulsing rhythmically from a clearing up ahead. As you get closer, you see it's not a flashlight - it's a shimmering tear in the air.",
+    "theme": "hawkins-night",
+    "text": "Curiosity wins. You ditch your bike behind a bush and cautiously step into the forest. The air grows cold. The flickering light is stronger here, pulsing from a clearing up ahead. It's not a fire; it's a shimmering, unstable tear in the air... a Gate.",
     "choices": [
-      { "text": "Touch the tear", "next": "touch_tear" },
-      { "text": "Observe from a distance", "next": "observe_tear" }
+      { "text": "Get closer to the Gate", "next": "observe_gate" },
+      { "text": "Back away slowly and call the police", "next": "call_police" }
     ]
   },
-  "touch_tear": {
-    "text": "You reach out a hesitant hand. The moment your fingers touch the shimmering energy, the world dissolves into a chaotic swirl of red and black. You feel a nauseating lurch, and then... silence. You open your eyes to a nightmare version of the forest. The air is thick with floating spores, and strange, vine-like tendrils cover everything. You've crossed over.",
+  "call_police": {
+    "theme": "hawkins-night",
+    "text": "You back away, find your bike, and race to the nearest payphone to call 911. Chief Hopper answers. You try to explain what you saw... a weird, glowing... thing. He sounds tired. 'Stay put, kid. I'll come check it out.' You wait, but after an hour, you realize he probably thought it was a prank. You go home, unsettled. The End.",
+    "choices": []
+  },
+
+  "observe_gate": {
+    "theme": "hawkins-night",
+    "text": "You hide behind a large oak tree, heart pounding. The Gate hums with a menacing energy. Suddenly, a van screeches to a halt on the road. Men in lab coats pour out. They are heading for the Gate. One of them spots your bike.",
     "choices": [
-      { "text": "Scream for help", "next": "scream_upside_down" },
-      { "text": "Look for a way back", "next": "find_gate_back" }
+      { "text": "Make a run for it", "next": "run_from_agents" },
+      { "text": "Stay hidden", "next": "stay_hidden_agents" },
+      { "text": "Grab a heavy branch to defend yourself", "setState": {"hasBranch": true}, "next": "grab_branch" }
     ]
   },
-  "observe_tear": {
-    "text": "You hide behind a large oak tree, heart pounding in your chest. The tear in reality, the 'gate', hums with a low, menacing energy. After a few minutes, a creature lurches out of it. It's pale, faceless, and unfolds like a grotesque flower. A Demogorgon. It hasn't seen you. What's the plan?",
+  "grab_branch": {
+    "theme": "hawkins-night",
+    "text": "You quietly pick up a thick branch. It's not much, but it's better than nothing. The men are setting up equipment around the Gate.",
     "choices": [
-      { "text": "Run as fast as you can", "next": "run_from_demogorgon" },
-      { "text": "Stay hidden and hope it leaves", "next": "hide_from_demogorgon" }
+        { "text": "Stay hidden", "next": "stay_hidden_agents" },
+        { "text": "Try to create a distraction", "next": "create_distraction" }
     ]
   },
-  "scream_upside_down": {
-    "text": "Your scream is swallowed by the oppressive atmosphere of this 'Upside Down'. Instead of help, your cry attracts attention. You hear a terrifying chittering sound approaching fast. You realize screaming was a very, very bad idea. The End.",
-    "choices": []
-  },
-  "find_gate_back": {
-    "text": "Panic is a luxury you can't afford. You look back to where you came from and see the gate, still shimmering. It seems to be the only way out. You take a deep breath and prepare to run back through it, hoping whatever is out here doesn't see you first.",
+  "create_distraction": {
+    "theme": "hawkins-night",
+    "text": "You hurl the branch deep into the woods. It lands with a loud CRACK. 'What was that?' one agent shouts. Two of them move to investigate. This is your chance.",
     "choices": [
-      { "text": "Make a dash for the gate", "next": "dash_for_gate" }
+        { "text": "Sneak to your bike and escape", "next": "path_b_start" },
+        { "text": "Sneak closer to their van", "next": "sneak_to_van" }
     ]
   },
-  "run_from_demogorgon": {
-    "text": "You don't wait to see what it does next. You turn and sprint, not caring about the noise. The creature lets out a screech and gives chase. The forest is a blur. You burst out of the woods, not caring where you are, just that you're out. You don't look back. You made it out, but now you know the monsters are real. The End.",
+  "run_from_agents": {
+    "theme": "hawkins-night",
+    "text": "You burst from your hiding spot and sprint. 'We have a runner!' someone yells. You hear them crashing through the undergrowth behind you. They're getting closer.",
+    "choices": [
+      { "text": "Dive through the Gate as a last resort", "next": "dive_through_gate" }
+    ]
+  },
+  "stay_hidden_agents": {
+    "theme": "hawkins-lab",
+    "text": "'Find the owner of that bike,' a grim-faced man orders. They find you. A bright light blinds you, and you're surrounded. They hustle you into a van and take you to a stark, white facility: Hawkins National Laboratory.",
+    "choices": [
+      { "text": "Path A: Enter the Lab", "next": "path_a_start" }
+    ]
+  },
+  "sneak_to_van": {
+    "theme": "hawkins-lab",
+    "text": "You creep to the van while they're distracted. The side door is unlocked. You slip inside, hiding among equipment cases. A moment later, they drive off, taking you straight into Hawkins National Laboratory.",
+    "choices": [
+        { "text": "Path A: Enter the Lab", "next": "path_a_start" }
+    ]
+  },
+
+  "dive_through_gate": {
+    "theme": "upside-down",
+    "text": "You pivot and dive into the shimmering portal. The world dissolves into a nauseating swirl of red and black. You land on slimy, vine-covered ground. The air is thick with floating spores. A twisted, nightmare version of the forest surrounds you. You've entered the Upside Down.",
+    "choices": [
+      { "text": "Look for a way back", "next": "ud_find_gate" },
+      { "text": "Look for shelter", "next": "ud_find_shelter" }
+    ]
+  },
+  "ud_find_gate": {
+    "theme": "upside-down",
+    "text": "You look back, but the Gate is gone. It must have closed. Panic sets in. You are trapped. In the distance, a terrifying screech echoes. You are being hunted. The End.",
     "choices": []
   },
-  "hide_from_demogorgon": {
-    "text": "You press yourself against the tree, trying to control your breathing. The Demogorgon sniffs the air, its head tilting unnervingly. After a moment that feels like an eternity, it wanders off in another direction. You wait until it's long gone before slowly, carefully, backing away and running for your life. You're safe, for now. The End.",
+  "ud_find_shelter": {
+    "theme": "upside-down",
+    "text": "You scramble into a hollow, vine-choked log. The air is cold and smells of decay. You hear a monster pass by. You are alone, in a dying world, with no way home. But for now, you are alive. The End.",
     "choices": []
   },
-  "dash_for_gate": {
-    "text": "You sprint towards the gate. The ground squelches beneath your feet. A shriek from the darkness tells you you've been spotted. You pour on the speed, diving headfirst through the shimmering portal just as you feel a hot breath on your neck. You tumble back into the normal world, the gate snapping shut behind you with a sound like tearing fabric. You're safe, but you'll never forget what you saw. The End.",
+  
+  "path_a_start": {
+    "theme": "hawkins-lab",
+    "text": "You're in a cold, sterile interrogation room. A man in a suit, Dr. Brenner, sits opposite you. 'Tell me what you saw,' he says, his voice calm. 'You're safe here.'",
+    "choices": [
+      { "text": "Tell him everything about the Gate", "setState": {"cooperative": true}, "next": "lab_cooperate" },
+      { "text": "Refuse to talk", "setState": {"defiant": true}, "next": "lab_refuse" },
+      { "text": "Lie and say you saw nothing", "next": "lab_lie" }
+    ]
+  },
+  "lab_cooperate": {
+    "theme": "hawkins-lab",
+    "text": "You tell him about the glowing tear in the woods. He listens intently, nodding. 'You've been very helpful,' he says. 'We need to keep you here for observation. For your safety.' You're led to a small, white room with a bed and a locked door.",
+    "choices": [
+      { "text": "Wait and see what happens", "next": "lab_wait" },
+      { "text": "Examine your room for weaknesses", "next": "lab_examine_room" }
+    ]
+  },
+  "lab_refuse": {
+    "theme": "hawkins-lab",
+    "text": "You stay silent, glaring at him. His smile fades. 'Defiance won't help you,' he says coldly. Guards escort you to a small, white room. The door locks heavily behind you.",
+    "choices": [
+      { "text": "Pound on the door and yell", "next": "lab_yell" },
+      { "text": "Examine your room for weaknesses", "next": "lab_examine_room" }
+    ]
+  },
+  "lab_lie": {
+    "theme": "hawkins-lab",
+    "text": "You lie, claiming you were just exploring and got lost. Brenner studies you for a long moment. 'I see,' he says, though it's clear he doesn't believe you. You are escorted to a locked observation room.",
+    "choices": [
+      { "text": "Wait and see what happens", "next": "lab_wait" },
+      { "text": "Examine your room for weaknesses", "next": "lab_examine_room" }
+    ]
+  },
+  "lab_examine_room": {
+    "theme": "hawkins-lab",
+    "text": "The room is sparse. A bed, a toilet. You notice the grate covering the air vent is loose. You might be able to pry it off. You also see a small, rectangular slot next to the door, for a keycard.",
+    "choices": [
+      { "text": "Try to pry the vent grate off", "next": "lab_vent" },
+      { "text": "Keep waiting", "next": "lab_wait" }
+    ]
+  },
+  "lab_vent": {
+    "theme": "hawkins-lab",
+    "text": "After a few minutes of work, you manage to pull the grate free. The vent is small and dark, but it seems to lead somewhere. You have found a potential escape route.",
+    "setState": {"ventIsOpen": true},
+    "choices": [
+      { "text": "Crawl into the vent immediately", "next": "lab_crawl_vent" },
+      { "text": "Wait for a better opportunity", "next": "lab_wait" }
+    ]
+  },
+  "lab_wait": {
+    "theme": "hawkins-lab",
+    "text": "Hours pass. A tray of food is pushed through a slot in the door. Later, you hear alarms blaring in the distance. A voice on the intercom shouts about a 'containment breach'. This could be your chance.",
+    "choices": [
+      { "text": "Crawl into the open vent", "requires": {"ventIsOpen": true}, "next": "lab_crawl_vent_chaos" },
+      { "text": "Hide under the bed", "next": "lab_hide_bed" },
+      { "text": "Peer through the door's small window", "next": "lab_peek_window" }
+    ]
+  },
+  "lab_crawl_vent_chaos": {
+    "theme": "upside-down",
+    "text": "You scramble into the vent as red emergency lights flash. The metal is cold. You crawl for what feels like an eternity, following the sound of chaos. You emerge in a larger laboratory, but something is wrong. The walls are covered in pulsating organic matter, and the air is thick with spores. The breach is here. You've entered a section of the lab that has been terraformed by the Upside Down.",
+    "choices": [
+      { "text": "Find a weapon", "next": "climax_lab_weapon" },
+      { "text": "Look for other survivors", "next": "climax_lab_survivors" }
+    ]
+  },
+
+  "path_b_start": {
+    "theme": "hawkins-night",
+    "text": "You get to your bike and pedal away, your mind racing. Monsters. Secret agents. You need help. You know who to trust.",
+    "choices": [
+      { "text": "Go to Mike Wheeler's house", "next": "goto_mikes" },
+      { "text": "Go to Chief Hopper's office", "next": "goto_hoppers" }
+    ]
+  },
+  "goto_mikes": {
+    "theme": "hawkins-night",
+    "text": "You race to Mike's house and pound on the basement window. Mike, Dustin, and Lucas are in the middle of a D&D campaign. You tumble inside, out of breath, and tell them everything you saw.",
+    "choices": [
+      { "text": "Show them where you saw the Gate", "next": "show_party_gate" },
+      { "text": "Ask them if they've seen anything weird", "next": "ask_party_weird" }
+    ]
+  },
+  "show_party_gate": {
+    "theme": "hawkins-night",
+    "text": "They're skeptical but intrigued. You lead them back to Mirkwood. But when you arrive, the Gate is gone. The agents have cleaned up. There's no trace of what happened. 'You were probably just seeing things,' Lucas says.",
+    "choices": [
+      { "text": "Insist it was real", "next": "party_insist" },
+      { "text": "Give up and go home", "next": "party_giveup" }
+    ]
+  },
+  "ask_party_weird": {
+    "theme": "hawkins-night",
+    "text": "'Weird?' Dustin says, adjusting his hat. 'You mean weirder than Will not coming home yet?' Your blood runs cold. Will Byers is missing.",
+    "setState": {"knowsWillIsMissing": true},
+    "choices": [
+      { "text": "Connect it to the monster", "next": "party_connect" },
+      { "text": "Offer to help search for him", "next": "party_search" }
+    ]
+  },
+  "party_connect": {
+    "theme": "hawkins-night",
+    "text": "'Guys,' you say slowly. 'What if a monster took Will?' Mike and Dustin look at you with wide eyes. Lucas just scoffs. 'Like the Demogorgon? That's just a game!' But the seed of an idea has been planted. You need a plan.",
+    "choices": [
+      { "text": "We need to get weapons", "next": "party_get_weapons" },
+      { "text": "We need to talk to an adult", "next": "goto_hoppers" }
+    ]
+  },
+  "party_get_weapons": {
+    "theme": "hawkins-day",
+    "text": "The next day, you all meet up. 'My dad's got a handgun,' Lucas says. 'No way,' Mike objects. Dustin pulls a strange contraption from his bag. 'I modified the school's radio. The 'Cerebro'. We can listen for Russians... or monsters.' You grab your brother's old slingshot. It's not much, but it's a start.",
+    "setState": {"hasSlingshot": true, "hasCerebro": true},
+    "choices": [
+      { "text": "Use Cerebro to search for clues", "next": "climax_party_cerebro" },
+      { "text": "Go to the woods to practice shooting", "next": "climax_party_practice" }
+    ]
+  },
+  
+  "climax_party_cerebro": {
+    "theme": "school-gym",
+    "text": "You set up Cerebro on the highest hill in Hawkins. As Dustin fine-tunes the frequency, you hear it. Not Russian, but a faint, panicked voice whispering from the static... and then a monstrous screech. It's coming from the direction of Hawkins Middle School. You know what you have to do.",
+    "choices": [
+        { "text": "Head to the school to confront the beast", "next": "final_confrontation"}
+    ]
+  },
+  "final_confrontation": {
+    "theme": "upside-down",
+    "text": "You find another, weaker Gate in the school's science lab. You step through into the Upside Down version of the school. The Demogorgon is here, stalking the halls. This is it.",
+    "choices": [
+        {"text": "Use the slingshot to create a diversion", "requires": {"hasSlingshot": true}, "next": "ending_party_win"},
+        {"text": "Try to sneak past it", "next": "ending_party_sneak_fail"},
+        {"text": "Yell to draw it towards you", "next": "ending_party_sacrifice"}
+    ]
+  },
+  "ending_party_win": {
+    "theme": "hawkins-day",
+    "text": "You fire your slingshot at a row of lockers down the hall. The creature is distracted by the sound, giving you just enough time to find Will Byers, hiding and terrified in a classroom. You pull him through the Gate just as it seals behind you. You saved him. You're a hero. The End.",
     "choices": []
   },
-  "answer_phone": {
-    "text": "You pick up the receiver. 'Hello?' you say. There's only static, then a faint, panicked voice whispers your name from the noise before the line goes dead. A chill runs down your spine. That voice... it sounded like Will Byers.",
+  "ending_party_sneak_fail": {
+    "theme": "upside-down",
+    "text": "You try to sneak by, but you step on a pulsating vine. It screeches, alerting the monster. There's nowhere to run. The End.",
     "choices": []
   },
-  "ignore_phone": {
-    "text": "You let it ring. It's probably a wrong number. You go to your room, turn on your radio, and try to forget about the weird light in the woods. You eventually fall asleep, oblivious to the dangers stirring in the town. The End.",
+  "ending_party_sacrifice": {
+    "theme": "hawkins-day",
+    "text": "You scream, drawing the creature's attention while your friends find Will and escape. Your sacrifice saved them. The End.",
     "choices": []
   }
 }

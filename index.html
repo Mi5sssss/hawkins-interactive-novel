@@ -7,89 +7,213 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* CSS Variables for theming */
+        :root {
+            --font-main: 'Inter', sans-serif;
+            --font-title: 'Press Start 2P', cursive;
+            --bg-color: #f0f0f0;
+            --text-color: #111;
+            --primary-accent: #333;
+            --secondary-accent: #555;
+            --btn-bg: #444;
+            --btn-border: #222;
+            --btn-text-color: #fff;
+            --glow-color: #333;
+            --bg-image: none;
+        }
+
+        /* Theme: Hawkins Night */
+        .theme-hawkins-night {
+            --font-main: 'Press Start 2P', cursive;
+            --bg-color: #000000;
+            --text-color: #FFFFFF;
+            --primary-accent: #D90429;
+            --secondary-accent: #EF233C;
+            --btn-bg: #2B2D42;
+            --btn-border: #8D99AE;
+            --btn-text-color: #fff;
+            --glow-color: #D90429;
+            --bg-image: radial-gradient(var(--primary-accent) 1px, transparent 1px);
+            --bg-size: 20px 20px;
+        }
+
+        /* Theme: Upside Down */
+        .theme-upside-down {
+            --font-main: 'Press Start 2P', cursive;
+            --bg-color: #020024;
+            --text-color: #b8dbd9;
+            --primary-accent: #8e2de2;
+            --secondary-accent: #4a00e0;
+            --btn-bg: #3c1361;
+            --btn-border: #5c2494;
+            --btn-text-color: #fff;
+            --glow-color: #8e2de2;
+            --bg-image: radial-gradient(#ff000022 1px, transparent 1px);
+            --bg-size: 15px 15px;
+            animation: pulse-bg 10s infinite;
+        }
+        
+        /* Theme: Hawkins Lab */
+        .theme-hawkins-lab {
+            --font-main: 'Inter', sans-serif;
+            --bg-color: #e8e8e8;
+            --text-color: #111;
+            --primary-accent: #ff8c00;
+            --secondary-accent: #f5a623;
+            --btn-bg: #5f5f5f;
+            --btn-border: #333;
+            --btn-text-color: #fff;
+            --glow-color: #ff8c00;
+            --bg-image: linear-gradient(90deg, #dcdcdc 1px, transparent 1px), linear-gradient(0deg, #dcdcdc 1px, transparent 1px);
+            --bg-size: 25px 25px;
+        }
+
+        /* Additional Themes from Story */
+        .theme-hawkins-day {
+            --font-main: 'Inter', sans-serif;
+            --bg-color: #E0FBFC;
+            --text-color: #272727;
+            --primary-accent: #3D5A80;
+            --secondary-accent: #98C1D9;
+            --btn-bg: #3D5A80;
+            --btn-border: #293241;
+            --btn-text-color: #fff;
+            --glow-color: #3D5A80;
+        }
+        
+        .theme-school-gym, .theme-byers-house {
+            --font-main: 'Inter', sans-serif;
+            --bg-color: #fcefdc;
+            --text-color: #4a2e00;
+            --primary-accent: #a1662f;
+            --secondary-accent: #c7884f;
+            --btn-bg: #825022;
+            --btn-border: #4a2e00;
+            --btn-text-color: #fff;
+            --glow-color: #a1662f;
+        }
+
         body {
-            font-family: 'Press Start 2P', cursive;
-            background-color: #000000;
-            color: #FFFFFF;
-            background-image: radial-gradient(#ff000022 1px, transparent 1px);
-            background-size: 15px 15px;
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            background-image: var(--bg-image);
+            background-size: var(--bg-size);
+            transition: all 0.7s ease;
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse-bg {
+            0% { background-color: #020024; }
+            50% { background-color: #1d0f3d; }
+            100% { background-color: #020024; }
+        }
+
         .text-container {
-            border: 3px solid #D90429;
-            box-shadow: 0 0 15px #D90429, 0 0 25px #D90429 inset;
+            border: 3px solid var(--primary-accent);
+            box-shadow: 0 0 15px var(--glow-color), 0 0 25px var(--glow-color) inset;
             background-color: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.5s ease-out;
+            transition: all 0.5s ease;
         }
+        
+        .theme-hawkins-lab .text-container, .theme-hawkins-day .text-container, .theme-school-gym .text-container, .theme-byers-house .text-container {
+             background-color: rgba(255, 255, 255, 0.8);
+        }
+
         .choice-btn {
-            background-color: #2B2D42;
-            border: 2px solid #8D99AE;
+            background-color: var(--btn-bg);
+            border: 2px solid var(--btn-border);
+            color: var(--btn-text-color);
             transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
         }
+
         .choice-btn:hover {
-            background-color: #D90429;
-            border-color: #EF233C;
+            background-color: var(--primary-accent);
+            border-color: var(--secondary-accent);
             transform: scale(1.05);
-            box-shadow: 0 0 10px #EF233C;
+            box-shadow: 0 0 10px var(--secondary-accent);
         }
+        
         .title-glow {
-            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #D90429, 0 0 30px #D90429, 0 0 40px #D90429, 0 0 50px #D90429;
+            font-family: var(--font-title);
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px var(--glow-color), 0 0 30px var(--glow-color), 0 0 40px var(--glow-color);
+            transition: text-shadow 0.5s ease;
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-4">
+<body>
 
-    <div id="game-container" class="w-full max-w-3xl mx-auto">
+    <div id="game-container" class="w-full max-w-4xl mx-auto p-4">
         <h1 class="text-3xl md:text-5xl font-bold text-center mb-8 title-glow">Hawkins Adventures</h1>
         
-        <div id="text-display" class="text-container p-6 rounded-lg mb-6 min-h-[200px] text-lg leading-relaxed">
-            <!-- Story text will be loaded here -->
+        <div id="text-display" class="text-container p-6 rounded-lg mb-6 min-h-[250px] text-lg leading-relaxed">
             Loading story...
         </div>
 
-        <div id="choices-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Choice buttons will be generated here -->
-        </div>
+        <div id="choices-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const textDisplay = document.getElementById('text-display');
             const choicesContainer = document.getElementById('choices-container');
-            let story; // Will hold the fetched story data
+            const body = document.body;
+            let story;
+            let gameState = {}; // Player inventory and state flags
 
-            // Game State - you can add things here to track player inventory, etc.
-            let gameState = {};
-
-            // Function to start the game
             function startGame(storyContent) {
                 story = storyContent;
-                gameState = {}; // Reset state
+                gameState = {}; // Reset state on new game
                 showScene('start');
             }
 
-            // Function to display a scene
             function showScene(sceneId) {
                 const scene = story[sceneId];
                 if (!scene) {
                     console.error(`Scene with id "${sceneId}" not found!`);
-                    textDisplay.innerText = "An error occurred in the story. The path is broken.";
+                    textDisplay.innerText = "An error occurred. The story path is broken.";
                     choicesContainer.innerHTML = '';
                     return;
                 }
 
-                // Display the story text
+                // Apply dynamic theme from story.json, or default to root style
+                body.className = scene.theme || '';
+
+                // Animate text display
+                textDisplay.style.animation = 'none';
+                void textDisplay.offsetWidth; // Trigger reflow
+                textDisplay.style.animation = 'fadeIn 0.5s ease-out';
                 textDisplay.innerText = scene.text;
 
-                // Clear old choices
                 choicesContainer.innerHTML = '';
 
-                // Display new choices
-                if (scene.choices && scene.choices.length > 0) {
-                    scene.choices.forEach(choice => {
+                // Filter choices based on gameState
+                const availableChoices = scene.choices.filter(choice => {
+                    if (!choice.requires) {
+                        return true; // No requirement, choice is always available
+                    }
+                    // Check if all requirements are met
+                    return Object.keys(choice.requires).every(key => {
+                        return gameState[key] === choice.requires[key];
+                    });
+                });
+
+                if (availableChoices.length > 0) {
+                    availableChoices.forEach((choice, index) => {
                         const button = document.createElement('button');
                         button.innerText = choice.text;
-                        button.className = 'choice-btn p-4 rounded-lg text-left text-white w-full';
+                        button.className = 'choice-btn p-4 rounded-lg text-left w-full';
+                        button.style.animationDelay = `${index * 0.1}s`;
                         button.addEventListener('click', () => selectChoice(choice));
                         choicesContainer.appendChild(button);
                     });
@@ -97,35 +221,37 @@
                     // This is an ending
                     const endButton = document.createElement('button');
                     endButton.innerText = 'Play Again?';
-                    endButton.className = 'choice-btn p-4 rounded-lg text-center text-white w-full md:col-span-2';
+                    endButton.className = 'choice-btn p-4 rounded-lg text-center w-full md:col-span-2 lg:col-span-3';
+                    endButton.style.animationDelay = '0.1s';
                     endButton.addEventListener('click', () => startGame(story));
                     choicesContainer.appendChild(endButton);
                 }
             }
 
-            // Function to handle choice selection
             function selectChoice(choice) {
+                // Update game state if the choice sets it
+                if (choice.setState) {
+                    Object.assign(gameState, choice.setState);
+                    console.log("New Game State:", gameState); // For debugging
+                }
                 const nextSceneId = choice.next;
                 showScene(nextSceneId);
             }
 
-            // --- Game Initialization ---
-            // This function now fetches the external story file
             async function init() {
                 try {
-                    const response = await fetch('story.json');
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
+                    // Add a cache-busting query parameter to avoid loading a stale story file
+                    const response = await fetch(`story.json?v=${new Date().getTime()}`);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                     const storyContent = await response.json();
                     startGame(storyContent);
                 } catch (error) {
                     console.error("Could not load story:", error);
-                    textDisplay.innerText = "Failed to load the story. Please check the connection or the story file.";
+                    textDisplay.innerText = "Failed to load the story. Please ensure 'story.json' is in the same directory.";
                 }
             }
             
-            init(); // Start the game initialization process
+            init();
         });
     </script>
 </body>
