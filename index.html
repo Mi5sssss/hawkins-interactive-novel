@@ -11,6 +11,7 @@
     <style>
         /* CSS Variables for theming */
         :root {
+            /* These are fallbacks, but themes will override them */
             --font-main: 'Inter', sans-serif;
             --font-title: 'Press Start 2P', cursive;
             --bg-color: #f0f0f0;
@@ -24,9 +25,12 @@
             --bg-image: none;
         }
 
-        /* Theme: Hawkins Night */
+        /* --- Primary User Styles --- */
+        .style-nostalgic { --font-main: 'Press Start 2P', cursive; }
+        .style-readable { --font-main: 'Inter', sans-serif; }
+
+        /* --- Dynamic Story Themes (Control Colors & BG) --- */
         .theme-hawkins-night {
-            --font-main: 'Press Start 2P', cursive;
             --bg-color: #000000;
             --text-color: #FFFFFF;
             --primary-accent: #D90429;
@@ -38,10 +42,7 @@
             --bg-image: radial-gradient(var(--primary-accent) 1px, transparent 1px);
             --bg-size: 20px 20px;
         }
-
-        /* Theme: Upside Down */
         .theme-upside-down {
-            --font-main: 'Press Start 2P', cursive;
             --bg-color: #020024;
             --text-color: #b8dbd9;
             --primary-accent: #8e2de2;
@@ -54,10 +55,7 @@
             --bg-size: 15px 15px;
             animation: pulse-bg 10s infinite;
         }
-        
-        /* Theme: Hawkins Lab */
         .theme-hawkins-lab {
-            --font-main: 'Inter', sans-serif;
             --bg-color: #e8e8e8;
             --text-color: #111;
             --primary-accent: #ff8c00;
@@ -69,10 +67,7 @@
             --bg-image: linear-gradient(90deg, #dcdcdc 1px, transparent 1px), linear-gradient(0deg, #dcdcdc 1px, transparent 1px);
             --bg-size: 25px 25px;
         }
-
-        /* Additional Themes from Story */
         .theme-hawkins-day {
-            --font-main: 'Inter', sans-serif;
             --bg-color: #E0FBFC;
             --text-color: #272727;
             --primary-accent: #3D5A80;
@@ -82,9 +77,7 @@
             --btn-text-color: #fff;
             --glow-color: #3D5A80;
         }
-        
         .theme-school-gym, .theme-byers-house {
-            --font-main: 'Inter', sans-serif;
             --bg-color: #fcefdc;
             --text-color: #4a2e00;
             --primary-accent: #a1662f;
@@ -108,7 +101,6 @@
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
         @keyframes pulse-bg {
             0% { background-color: #020024; }
             50% { background-color: #1d0f3d; }
@@ -122,8 +114,7 @@
             animation: fadeIn 0.5s ease-out;
             transition: all 0.5s ease;
         }
-        
-        .theme-hawkins-lab .text-container, .theme-hawkins-day .text-container, .theme-school-gym .text-container, .theme-byers-house .text-container {
+        .style-readable .text-container, .theme-hawkins-lab .text-container, .theme-hawkins-day .text-container, .theme-school-gym .text-container, .theme-byers-house .text-container {
              background-color: rgba(255, 255, 255, 0.8);
         }
 
@@ -135,7 +126,6 @@
             opacity: 0;
             animation: fadeIn 0.5s ease-out forwards;
         }
-
         .choice-btn:hover {
             background-color: var(--primary-accent);
             border-color: var(--secondary-accent);
@@ -148,9 +138,41 @@
             text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px var(--glow-color), 0 0 30px var(--glow-color), 0 0 40px var(--glow-color);
             transition: text-shadow 0.5s ease;
         }
+
+        .settings-panel {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+            background-color: rgba(0,0,0,0.5);
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+        .style-btn {
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border: 2px solid white;
+            border-radius: 5px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            background-color: #444;
+            color: white;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .style-btn.active {
+            background-color: white;
+            color: black;
+        }
     </style>
 </head>
 <body>
+
+    <div class="settings-panel">
+        <button id="style-nostalgic" class="style-btn" title="Switch to Nostalgic Style">Nostalgic</button>
+        <button id="style-readable" class="style-btn" title="Switch to Readable Style">Readable</button>
+    </div>
 
     <div id="game-container" class="w-full max-w-4xl mx-auto p-4">
         <h1 class="text-3xl md:text-5xl font-bold text-center mb-8 title-glow">Hawkins Adventures</h1>
@@ -160,7 +182,8 @@
         </div>
 
         <div id="choices-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            </div>
+            <!-- Choice buttons will be generated here -->
+        </div>
     </div>
 
     <script>
@@ -168,13 +191,42 @@
             const textDisplay = document.getElementById('text-display');
             const choicesContainer = document.getElementById('choices-container');
             const body = document.body;
+            const nostalgicBtn = document.getElementById('style-nostalgic');
+            const readableBtn = document.getElementById('style-readable');
+            
             let story;
             let gameState = {};
-            let currentTheme = ''; // Variable to track the current theme
+            let currentUserStyle = 'style-nostalgic'; // Default style
+            let currentStoryTheme = '';
+
+            // --- REVISED LOGIC ---
+            function updateBodyClasses() {
+                // Combine the user's chosen style with the story's current theme.
+                // The trim() is to prevent extra spaces if one class is empty.
+                body.className = `${currentUserStyle} ${currentStoryTheme}`.trim();
+            }
+
+            // --- Event Listeners for Style Buttons ---
+            nostalgicBtn.addEventListener('click', () => {
+                currentUserStyle = 'style-nostalgic';
+                nostalgicBtn.classList.add('active');
+                readableBtn.classList.remove('active');
+                updateBodyClasses();
+            });
+
+            readableBtn.addEventListener('click', () => {
+                currentUserStyle = 'style-readable';
+                readableBtn.classList.add('active');
+                nostalgicBtn.classList.remove('active');
+                updateBodyClasses();
+            });
 
             function startGame(storyContent) {
                 story = storyContent;
-                gameState = {}; // Reset state on new game
+                gameState = {};
+                // Set initial active button
+                nostalgicBtn.classList.add('active');
+                readableBtn.classList.remove('active');
                 showScene('start');
             }
 
@@ -187,33 +239,17 @@
                     return;
                 }
 
-                // --- REVISED THEME LOGIC ---
-                // 1. Get the new theme from the story file. Default to an empty string if none.
-                const newTheme = scene.theme || '';
+                // Update the story theme and then apply all classes
+                currentStoryTheme = scene.theme || '';
+                updateBodyClasses();
 
-                // 2. If a theme is currently applied, remove it.
-                if (currentTheme) {
-                    body.classList.remove(currentTheme);
-                }
-
-                // 3. If the new scene has a theme, add it.
-                if (newTheme) {
-                    body.classList.add(newTheme);
-                }
-
-                // 4. Update our tracker with the new theme name.
-                currentTheme = newTheme;
-                // --- END REVISED LOGIC ---
-
-                // Animate text display
                 textDisplay.style.animation = 'none';
-                void textDisplay.offsetWidth; // Trigger reflow
+                void textDisplay.offsetWidth;
                 textDisplay.style.animation = 'fadeIn 0.5s ease-out';
                 textDisplay.innerText = scene.text;
 
                 choicesContainer.innerHTML = '';
 
-                // Filter choices based on gameState
                 const availableChoices = scene.choices.filter(choice => {
                     if (!choice.requires) return true;
                     return Object.keys(choice.requires).every(key => gameState[key] === choice.requires[key]);
@@ -241,7 +277,6 @@
             function selectChoice(choice) {
                 if (choice.setState) {
                     Object.assign(gameState, choice.setState);
-                    console.log("New Game State:", gameState);
                 }
                 showScene(choice.next);
             }
