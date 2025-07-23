@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hawkins Adventures</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: #000000;
+            color: #FFFFFF;
+            background-image: radial-gradient(#ff000022 1px, transparent 1px);
+            background-size: 15px 15px;
+        }
+        .text-container {
+            border: 3px solid #D90429;
+            box-shadow: 0 0 15px #D90429, 0 0 25px #D90429 inset;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .choice-btn {
+            background-color: #2B2D42;
+            border: 2px solid #8D99AE;
+            transition: all 0.3s ease;
+        }
+        .choice-btn:hover {
+            background-color: #D90429;
+            border-color: #EF233C;
+            transform: scale(1.05);
+            box-shadow: 0 0 10px #EF233C;
+        }
+        .title-glow {
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #D90429, 0 0 30px #D90429, 0 0 40px #D90429, 0 0 50px #D90429;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+    <div id="game-container" class="w-full max-w-3xl mx-auto">
+        <h1 class="text-3xl md:text-5xl font-bold text-center mb-8 title-glow">Hawkins Adventures</h1>
+        
+        <div id="text-display" class="text-container p-6 rounded-lg mb-6 min-h-[200px] text-lg leading-relaxed">
+            <!-- Story text will be loaded here -->
+            Loading story...
+        </div>
+
+        <div id="choices-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Choice buttons will be generated here -->
+        </div>
+    </div>
+
+    <!-- The Game Engine -->
+    <script src="game.js"></script>
+    <!-- The Story Database -->
+    <script>
+        // In a real deployment, game.js would fetch story.json.
+        // For this self-contained example, we'll define the story data here
+        // and pass it directly to the game engine.
+        const storyData = {
+          "start": {
+            "text": "It's a cool October evening in Hawkins, Indiana. The sun has just set, casting long shadows across the quiet suburban streets. You're riding your bike home from the arcade. A strange, flickering light from the entrance to Mirkwood Forest catches your eye. You feel an inexplicable pull towards it. What do you do?",
+            "choices": [
+              { "text": "Investigate the light", "next": "enter_forest" },
+              { "text": "Ignore it and go home", "next": "go_home" }
+            ]
+          },
+          "go_home": {
+            "text": "You decide it's probably just some kids with fireworks. You pedal faster, the familiar comfort of your streetlights guiding you home. You eat dinner, watch some TV, and go to bed. The night is uneventful, but you can't shake the feeling that you missed something important. The End.",
+            "choices": []
+          },
+          "enter_forest": {
+            "text": "Curiosity gets the better of you. You ditch your bike behind a bush and cautiously step into the forest. The air grows cold. The only sound is the crunch of leaves under your feet. The flickering light is stronger here, pulsing rhythmically from a clearing up ahead. As you get closer, you see it's not a flashlight - it's a shimmering tear in the air.",
+            "choices": [
+              { "text": "Touch the tear", "next": "touch_tear" },
+              { "text": "Observe from a distance", "next": "observe_tear" }
+            ]
+          },
+          "touch_tear": {
+            "text": "You reach out a hesitant hand. The moment your fingers touch the shimmering energy, the world dissolves into a chaotic swirl of red and black. You feel a nauseating lurch, and then... silence. You open your eyes to a nightmare version of the forest. The air is thick with floating spores, and strange, vine-like tendrils cover everything. You've crossed over.",
+            "choices": [
+              { "text": "Scream for help", "next": "scream_upside_down" },
+              { "text": "Look for a way back", "next": "find_gate_back" }
+            ]
+          },
+          "observe_tear": {
+            "text": "You hide behind a large oak tree, heart pounding in your chest. The tear in reality, the 'gate', hums with a low, menacing energy. After a few minutes, a creature lurches out of it. It's pale, faceless, and unfolds like a grotesque flower. A Demogorgon. It hasn't seen you. What's the plan?",
+            "choices": [
+              { "text": "Run as fast as you can", "next": "run_from_demogorgon" },
+              { "text": "Stay hidden and hope it leaves", "next": "hide_from_demogorgon" }
+            ]
+          },
+          "scream_upside_down": {
+            "text": "Your scream is swallowed by the oppressive atmosphere of this 'Upside Down'. Instead of help, your cry attracts attention. You hear a terrifying chittering sound approaching fast. You realize screaming was a very, very bad idea. The End.",
+            "choices": []
+          },
+          "find_gate_back": {
+            "text": "Panic is a luxury you can't afford. You look back to where you came from and see the gate, still shimmering. It seems to be the only way out. You take a deep breath and prepare to run back through it, hoping whatever is out here doesn't see you first.",
+            "choices": [
+              { "text": "Make a dash for the gate", "next": "dash_for_gate" }
+            ]
+          },
+          "run_from_demogorgon": {
+            "text": "You don't wait to see what it does next. You turn and sprint, not caring about the noise. The creature lets out a screech and gives chase. The forest is a blur. You burst out of the woods, not caring where you are, just that you're out. You don't look back. You made it out, but now you know the monsters are real. The End.",
+            "choices": []
+          },
+          "hide_from_demogorgon": {
+            "text": "You press yourself against the tree, trying to control your breathing. The Demogorgon sniffs the air, its head tilting unnervingly. After a moment that feels like an eternity, it wanders off in another direction. You wait until it's long gone before slowly, carefully, backing away and running for your life. You're safe, for now. The End.",
+            "choices": []
+          },
+          "dash_for_gate": {
+            "text": "You sprint towards the gate. The ground squelches beneath your feet. A shriek from the darkness tells you you've been spotted. You pour on the speed, diving headfirst through the shimmering portal just as you feel a hot breath on your neck. You tumble back into the normal world, the gate snapping shut behind you with a sound like tearing fabric. You're safe, but you'll never forget what you saw. The End.",
+            "choices": []
+          }
+        };
+
+        // This would be in a separate story.json file
+        // For this example, it's embedded here.
+        // To extend the story, you just add more sections like the ones above.
+        // For example:
+        // "another_scene": {
+        //   "text": "This is a new part of the story.",
+        //   "choices": [
+        //     { "text": "Go here", "next": "some_other_id" },
+        //     { "text": "Go there", "next": "yet_another_id" }
+        //   ]
+        // }
+    </script>
+    <script>
+        // In a real setup, you would have two separate files:
+        // <script src="story.json"></script> (This is not valid, you fetch it)
+        // <script src="game.js"></script>
+        // The game.js would then fetch story.json.
+        // For this single-file example, we've embedded the story data above
+        // and will now provide the game logic that uses it.
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const textDisplay = document.getElementById('text-display');
+            const choicesContainer = document.getElementById('choices-container');
+            let story; // Will hold the fetched story data
+
+            // Game State - you can add things here to track player inventory, etc.
+            let gameState = {};
+
+            // Function to start the game
+            function startGame(storyContent) {
+                story = storyContent;
+                gameState = {}; // Reset state
+                showScene('start');
+            }
+
+            // Function to display a scene
+            function showScene(sceneId) {
+                const scene = story[sceneId];
+                if (!scene) {
+                    console.error(`Scene with id "${sceneId}" not found!`);
+                    textDisplay.innerText = "An error occurred in the story. The path is broken.";
+                    choicesContainer.innerHTML = '';
+                    return;
+                }
+
+                // Display the story text
+                textDisplay.innerText = scene.text;
+
+                // Clear old choices
+                choicesContainer.innerHTML = '';
+
+                // Display new choices
+                if (scene.choices && scene.choices.length > 0) {
+                    scene.choices.forEach(choice => {
+                        const button = document.createElement('button');
+                        button.innerText = choice.text;
+                        button.className = 'choice-btn p-4 rounded-lg text-left text-white w-full';
+                        button.addEventListener('click', () => selectChoice(choice));
+                        choicesContainer.appendChild(button);
+                    });
+                } else {
+                    // This is an ending
+                    const endButton = document.createElement('button');
+                    endButton.innerText = 'Play Again?';
+                    endButton.className = 'choice-btn p-4 rounded-lg text-center text-white w-full md:col-span-2';
+                    endButton.addEventListener('click', () => startGame(story));
+                    choicesContainer.appendChild(endButton);
+                }
+            }
+
+            // Function to handle choice selection
+            function selectChoice(choice) {
+                const nextSceneId = choice.next;
+                // You could add logic here to change gameState based on the choice
+                // e.g., if (choice.setsState) { gameState[choice.setsState] = true; }
+                showScene(nextSceneId);
+            }
+
+            // --- Game Initialization ---
+            // In a real project with separate files, you would fetch the JSON file.
+            // async function init() {
+            //     try {
+            //         const response = await fetch('story.json');
+            //         if (!response.ok) {
+            //             throw new Error(`HTTP error! status: ${response.status}`);
+            //         }
+            //         const storyContent = await response.json();
+            //         startGame(storyContent);
+            //     } catch (error) {
+            //         console.error("Could not load story:", error);
+            //         textDisplay.innerText = "Failed to load the story. Please check the connection or the story file.";
+            //     }
+            // }
+            // init();
+
+            // For this self-contained example, we use the storyData object defined in the HTML.
+            if (typeof storyData !== 'undefined') {
+                startGame(storyData);
+            } else {
+                textDisplay.innerText = "Story data not found!";
+            }
+        });
+    </script>
+</body>
+</html>
